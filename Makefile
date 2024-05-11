@@ -7,7 +7,7 @@ RM = rm -f
 INC = -I.
 SRC = \
       ./ft_printf.c \
-      ./ft_put_utils.c \
+      ./ft_pututils.c \
 
 
 
