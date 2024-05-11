@@ -34,7 +34,7 @@ int	ft_putstr_fd(char *s, int fd)
 	return (ft_strlen(s));
 }
 
-int	ft_putll_fd(long long n, int fd)
+int	ft_putll_fd(long long int n, int fd)
 {
 	int	count;
 
@@ -52,7 +52,7 @@ int	ft_putll_fd(long long n, int fd)
 	return (count);
 }
 
-int	ft_puthex_fd(int is_x, unsigned long long int n, int fd)
+int	ft_puthex_fd(int is_x, long long unsigned int n, int fd)
 {
 	char	digit;
 	int		count;

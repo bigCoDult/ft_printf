@@ -14,24 +14,23 @@
 # define FT_PRINTF_H
 
 # include <stdarg.h>
-# include <stdlib.h>
 # include <unistd.h>
+# include <stdlib.h>
 
 typedef struct s_etc
 {
-	int				count;
-	unsigned int	u;
-	char			*string;
+	int						n;
+	unsigned int			u;
+	char					*string;
+	long long unsigned int	*ads;
 }	t_etc;
-
 int	ft_printf(const char *str, ...);
-int	ft_putfmt(t_etc *etc, va_list ap, char c, unsigned long long int ptr);
-
+int	ft_putfmt_cdux(t_etc *etc, va_list ap, char c);
+int	ft_putfmt_sp(t_etc *etc, va_list ap, char c);
 int	ft_strlen(const char *s);
 int	ft_putchar_fd(char c, int fd);
 int	ft_putstr_fd(char *s, int fd);
-
-int	ft_putll_fd(long long n, int fd);
-int	ft_puthex_fd(int islower, unsigned long long int n, int fd);
+int	ft_putll_fd(long long int n, int fd);
+int	ft_puthex_fd(int islower, long long unsigned int n, int fd);
 
 #endif /* FT_PRINTF_H */
