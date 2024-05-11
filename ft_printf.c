@@ -26,6 +26,9 @@ int	ft_printf(const char *str, ...)
 		return (-1);
 	va_start(ap, str);
 	etc->n = 0;
+	etc->u = 0;
+	etc->string = "";
+	etc->ads = NULL;
 	while (*str)
 	{
 		if (*str == '%')

@@ -57,6 +57,7 @@ int	ft_puthex_fd(int is_x, long long unsigned int n, int fd)
 	char	digit;
 	int		count;
 
+	digit = '\0';
 	count = 1;
 	if (n >= 16)
 		count += ft_puthex_fd(is_x, n / 16, fd);

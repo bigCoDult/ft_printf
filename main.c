@@ -6,6 +6,30 @@ int main()
     int n = 1;
     char *nptr = NULL;
     int *nl = NULL;
+	
+    ft_printf("%d \n",ft_printf("Hello, %c ", '\0'));
+          printf("%d \n",printf("Hello, %c ", '\0'));
+    ft_printf("%d \n",ft_printf("Hello, %s ", ""));
+          printf("%d \n",printf("Hello, %s ", ""));
+    ft_printf("%d \n",ft_printf("Hello, %d ", 0));
+          printf("%d \n",printf("Hello, %d ", 0));
+    ft_printf("%d \n",ft_printf("Hello, %d ", 0));
+          printf("%d \n",printf("Hello, %d ", 0));
+    ft_printf("%d \n",ft_printf("Hello, %u ", 0));
+          printf("%d \n",printf("Hello, %u ", 0));
+    ft_printf("%d \n",ft_printf("Hello, %u ", 0));
+          printf("%d \n",printf("Hello, %u ", 0));
+    ft_printf("%d \n",ft_printf("Hello, %x ", 0));
+          printf("%d \n",printf("Hello, %x ", 0));
+    ft_printf("%d \n",ft_printf("Hello, %X ", 0));
+          printf("%d \n",printf("Hello, %X ", 0));
+    ft_printf("%d \n",ft_printf("Hello, %x ", 0));
+          printf("%d \n",printf("Hello, %x ", 0));
+    ft_printf("%d \n",ft_printf("Hello, %X ", 0));
+          printf("%d \n",printf("Hello, %X ", 0));
+    ft_printf("%d \n",ft_printf("Hello, %p ", (void *)0));
+          printf("%d \n",printf("Hello, %p ", (void *)0));
+	printf("\n");	
     ft_printf("%d \n",ft_printf("Hello, %% "));
           printf("%d \n",printf("Hello, %% "));
     ft_printf("%d \n",ft_printf("Hello, %c ", 'c'));
@@ -38,4 +62,3 @@ int main()
           printf("%d \n",printf("Hello, %s %d %u %x %X %p %c %% ", "world!", 42, 42, 42, 42, &n, 'c'));
     return 0;
 }
-
