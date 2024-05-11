@@ -4,13 +4,16 @@
 int main()
 {
     int n = 1;
-    char *nptr = NULL;
+    char *nptr; 
+    nptr = NULL;
     ft_printf("%d \n",ft_printf("Hello, %% "));
           printf("%d \n",printf("Hello, %% "));
     ft_printf("%d \n",ft_printf("Hello, %c ", 'c'));
           printf("%d \n",printf("Hello, %c ", 'c'));
     ft_printf("%d \n",ft_printf("Hello, %s ", "world!"));
           printf("%d \n",printf("Hello, %s ", "world!"));
+    ft_printf("%d \n",ft_printf("Hello, %s ", nptr));
+          printf("%d \n",printf("Hello, %s ", nptr));
     ft_printf("%d \n",ft_printf("Hello, %d ", 4200));
           printf("%d \n",printf("Hello, %d ", 4200));
     ft_printf("%d \n",ft_printf("Hello, %d ", -4200));

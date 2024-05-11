@@ -12,28 +12,28 @@
 
 #include "ft_printf.h"
 
-int		ft_putfmt(t_nums *nums, va_list ap, char c, unsigned long long int ptr);
-void	ft_test_specifier(const char *str, t_nums *nums, va_list ap);
+int		ft_putfmt(t_etc *etc, va_list ap, char c, unsigned long long int ptr);
+void	ft_test_specifier(const char *str, t_etc *etc, va_list ap);
 
 int	ft_printf(const char *str, ...)
 {
-	va_list					ap;
-	t_nums					*nums;
-	int						final_count;
+	va_list	ap;
+	t_etc	*etc;
+	int		final_count;
 
-	nums = malloc(sizeof(t_nums));
-	if (nums == NULL)
+	etc = malloc(sizeof(t_etc));
+	if (etc == NULL)
 		return (-1);
 	va_start(ap, str);
-	nums->count = 0;
-	ft_test_specifier(str, nums, ap);
+	etc->count = 0;
+	ft_test_specifier(str, etc, ap);
 	va_end(ap);
-	final_count = nums->count;
-	free(nums);
+	final_count = etc->count;
+	free(etc);
 	return (final_count);
 }
 
-void	ft_test_specifier(const char *str, t_nums *nums, va_list ap)
+void	ft_test_specifier(const char *str, t_etc *etc, va_list ap)
 {
 	unsigned long long int	ptr;
 
@@ -41,37 +41,38 @@ void	ft_test_specifier(const char *str, t_nums *nums, va_list ap)
 	while (*str)
 	{
 		if (*str == '%')
-			ft_putfmt(nums, ap, *++str, ptr);
+			ft_putfmt(etc, ap, *++str, ptr);
 		else
-			nums->count += ft_putchar_fd(*str, 1);
+			etc->count += ft_putchar_fd(*str, 1);
 		str++;
 	}
 }
 
-int	ft_putfmt(t_nums *nums, va_list ap, char c, unsigned long long int ptr)
+int	ft_putfmt(t_etc *etc, va_list ap, char c, unsigned long long int ptr)
 {
 	if (c == '%')
-		nums->count += ft_putchar_fd('%', 1);
+		etc->count += ft_putchar_fd('%', 1);
 	else if (c == 'c')
-		nums->count += ft_putchar_fd(va_arg(ap, int), 1);
+		etc->count += ft_putchar_fd(va_arg(ap, int), 1);
 	else if (c == 's')
-		nums->count += ft_putstr_fd(va_arg(ap, char *), 1);
-	else if (c == 'd' || c == 'i')
-		nums->count += ft_putlonglong_fd(va_arg(ap, int), 1);
-	else if (c == 'u')
 	{
-		nums->u = (va_arg(ap, unsigned int));
-		nums->count += ft_putlonglong_fd(nums->u, 1);
+		etc->string = (va_arg(ap, char *));
+		if (etc->string == NULL)
+			etc->count += ft_putstr_fd("(null)", 1);
+		else
+			etc->count += ft_putstr_fd(etc->string, 1);
 	}
-	else if (c == 'x')
-		nums->count += ft_puthex_fd(1, va_arg(ap, unsigned long long int), 1);
-	else if (c == 'X')
-		nums->count += ft_puthex_fd(0, va_arg(ap, unsigned long long int), 1);
+	else if (c == 'd' || c == 'i')
+		etc->count += ft_putll_fd(va_arg(ap, int), 1);
+	else if (c == 'u')
+		etc->count += ft_putll_fd((unsigned int)va_arg(ap, unsigned int), 1);
+	else if (c == 'x' || c == 'X')
+		etc->count += ft_puthex_fd(c, va_arg(ap, unsigned long long int), 1);
 	else if (c == 'p')
 	{
 		ptr = (unsigned long long int)va_arg(ap, void *);
-		nums->count += ft_putstr_fd("0x", 1);
-		nums->count += ft_puthex_fd(1, ptr, 1);
+		etc->count += ft_putstr_fd("0x", 1);
+		etc->count += ft_puthex_fd('x', ptr, 1);
 	}
-	return (nums->count);
+	return (etc->count);
 }
