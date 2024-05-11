@@ -34,16 +34,11 @@ int	ft_putstr_fd(char *s, int fd)
 	return (ft_strlen(s));
 }
 
-int	ft_putnbr_fd(int n, int fd)
+int	ft_putlonglong_fd(long long n, int fd)
 {
 	int	count;
 
-	count = 0;
-	if (n == -2147483648)
-	{
-		ft_putstr_fd("-2147483648", fd);
-		return (11);
-	}
+	count = 1;
 	if (n < 0)
 	{
 		n *= -1;
@@ -51,28 +46,27 @@ int	ft_putnbr_fd(int n, int fd)
 		count++;
 	}
 	if (n > 9)
-	{
-		ft_putnbr_fd(n / 10, fd);
-		count++;
-	}
+		count += ft_putlonglong_fd(n / 10, fd);
 	n = n % 10 + '0';
 	write(fd, &n, 1);
 	return (count);
 }
 
-int ft_puthex_fd(int islower, unsigned int n, int fd)
+int	ft_puthex_fd(int islower, unsigned long long int n, int fd)
 {
-    char digit;
-    
+	char	digit;
+	int		count;
+
+	count = 1;
 	if (n >= 16)
-        ft_puthex_fd(islower, n / 16, fd); 
-    n = n % 16;
-    if (n < 10)
-        digit = n + '0';
-    else if (islower == 1)
-        digit = n + 'a' - 10;
+		count += ft_puthex_fd(islower, n / 16, fd);
+	n = n % 16;
+	if (n < 10)
+		digit = n + '0';
+	else if (islower == 1)
+		digit = n + 'a' - 10;
 	else if (islower == 0)
-        digit = n + 'A' - 10;
-    write(fd, &digit, 1);
-    return (1);
+		digit = n + 'A' - 10;
+	write(fd, &digit, 1);
+	return (count);
 }

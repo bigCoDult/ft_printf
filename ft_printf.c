@@ -5,61 +5,73 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: sanbaek <sanbaek@student.42gyeongsan.kr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/10 13:17:26 by sanbaek           #+#    #+#             */
-/*   Updated: 2024/05/10 13:17:26 by sanbaek          ###   ########.fr       */
+/*   Created: 2024/05/11 11:26:58 by sanbaek           #+#    #+#             */
+/*   Updated: 2024/05/11 11:26:58 by sanbaek          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_put_format(char c, va_list ap);
+int		ft_putfmt(t_nums *nums, va_list ap, char c, unsigned long long int ptr);
+void	ft_test_specifier(const char *str, t_nums *nums, va_list ap);
 
 int	ft_printf(const char *str, ...)
 {
-	va_list	ap;
-	int		count;
+	va_list					ap;
+	t_nums					*nums;
+	int						final_count;
 
+	nums = malloc(sizeof(t_nums));
+	if (nums == NULL)
+		return (-1);
 	va_start(ap, str);
-	count = 0;
+	nums->count = 0;
+	ft_test_specifier(str, nums, ap);
+	va_end(ap);
+	final_count = nums->count;
+	free(nums);
+	return (final_count);
+}
+
+void	ft_test_specifier(const char *str, t_nums *nums, va_list ap)
+{
+	unsigned long long int	ptr;
+
+	ptr = 0;
 	while (*str)
 	{
 		if (*str == '%')
-		{
-			str++;
-			count += ft_put_format(*str, ap);
-		}
+			ft_putfmt(nums, ap, *++str, ptr);
 		else
-		{
-			ft_putchar_fd(*str, 1);
-			count++;
-		}
+			nums->count += ft_putchar_fd(*str, 1);
 		str++;
 	}
-	va_end(ap);
-	return (count);
 }
 
-int	ft_put_format(char c, va_list ap)
+int	ft_putfmt(t_nums *nums, va_list ap, char c, unsigned long long int ptr)
 {
-	int	count;
-
-	count = 0;
-	if (c == 'c')
-		count += ft_putchar_fd(va_arg(ap, int), 1);
+	if (c == '%')
+		nums->count += ft_putchar_fd('%', 1);
+	else if (c == 'c')
+		nums->count += ft_putchar_fd(va_arg(ap, int), 1);
 	else if (c == 's')
-		count += ft_putstr_fd(va_arg(ap, char *), 1);
+		nums->count += ft_putstr_fd(va_arg(ap, char *), 1);
 	else if (c == 'd' || c == 'i')
-		count += ft_putnbr_fd(va_arg(ap, int), 1);
+		nums->count += ft_putlonglong_fd(va_arg(ap, int), 1);
 	else if (c == 'u')
-		count += ft_putnbr_fd(va_arg(ap, unsigned int), 1);
+	{
+		nums->u = (va_arg(ap, unsigned int));
+		nums->count += ft_putlonglong_fd(nums->u, 1);
+	}
 	else if (c == 'x')
-		count += ft_puthex_fd(1, va_arg(ap, unsigned int), 1);
+		nums->count += ft_puthex_fd(1, va_arg(ap, unsigned long long int), 1);
 	else if (c == 'X')
-		count += ft_puthex_fd(0, va_arg(ap, unsigned int), 1);
+		nums->count += ft_puthex_fd(0, va_arg(ap, unsigned long long int), 1);
 	else if (c == 'p')
 	{
-		count += ft_putstr_fd("0x", 1);
-		count += ft_puthex_fd(1, va_arg(ap, unsigned long long), 1);
+		ptr = (unsigned long long int)va_arg(ap, void *);
+		nums->count += ft_putstr_fd("0x", 1);
+		nums->count += ft_puthex_fd(1, ptr, 1);
 	}
-	return (count);	
+	return (nums->count);
 }
