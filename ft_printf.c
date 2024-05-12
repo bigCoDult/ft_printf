@@ -49,12 +49,13 @@ int	ft_putfmt_cdux(t_etc *etc, va_list ap, char c)
 		etc->n += ft_putchar_fd('%', 1);
 	else if (c == 'c')
 		etc->n += ft_putchar_fd(va_arg(ap, int), 1);
+		// etc->n += ft_putchar_fd(va_arg(ap, char), 1);
 	else if (c == 'd' || c == 'i')
 		etc->n += ft_putll_fd(va_arg(ap, int), 1);
 	else if (c == 'u')
 		etc->n += ft_putll_fd(va_arg(ap, unsigned int), 1);
 	else if (c == 'x' || c == 'X')
-		etc->n += ft_puthex_fd(c, va_arg(ap, long long unsigned int), 1);
+		etc->n += ft_puthex_fd(c, va_arg(ap, unsigned int), 1);
 	else
 		return (ft_putfmt_sp(etc, ap, c));
 	return (etc->n);
