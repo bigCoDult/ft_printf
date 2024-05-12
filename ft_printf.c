@@ -49,7 +49,6 @@ int	ft_putfmt_cdux(t_etc *etc, va_list ap, char c)
 		etc->n += ft_putchar_fd('%', 1);
 	else if (c == 'c')
 		etc->n += ft_putchar_fd(va_arg(ap, int), 1);
-		// etc->n += ft_putchar_fd(va_arg(ap, char), 1);
 	else if (c == 'd' || c == 'i')
 		etc->n += ft_putll_fd(va_arg(ap, int), 1);
 	else if (c == 'u')
