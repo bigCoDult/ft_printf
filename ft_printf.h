@@ -24,6 +24,7 @@ typedef struct s_etc
 	char					*string;
 	long long unsigned int	*ads;
 }	t_etc;
+
 int	ft_printf(const char *str, ...);
 int	ft_putfmt_cdux(t_etc *etc, va_list ap, char c);
 int	ft_putfmt_sp(t_etc *etc, va_list ap, char c);

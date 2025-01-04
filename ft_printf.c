@@ -12,9 +12,6 @@
 
 #include "ft_printf.h"
 
-int		ft_putfmt_cdux(t_etc *etc, va_list ap, char c);
-int		ft_putfmt_sp(t_etc *etc, va_list ap, char c);
-
 int	ft_printf(const char *str, ...)
 {
 	va_list	ap;
@@ -40,7 +37,9 @@ int	ft_printf(const char *str, ...)
 	va_end(ap);
 	final_count = etc->n;
 	free(etc);
+	
 	return (final_count);
+
 }
 
 int	ft_putfmt_cdux(t_etc *etc, va_list ap, char c)
